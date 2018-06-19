@@ -1,0 +1,10 @@
+def testCommand = "cd /usr/src/app"
+
+def jenkins
+node {
+   fileLoader.withGit('https://github.com/raghavtan/task-todo-to-kubernetes.git', 'master', 'github-user', '') {
+       jenkins = fileLoader.load('jenkins/jenkins');
+   }
+}
+jenkins.start(testCommand)
+

@@ -1,0 +1,19 @@
+{
+  "name": "node-service",
+  "version": "1.0.0",
+  "description": "service",
+  "scripts": {
+    "start": "grunt"
+  },
+  "author": "raghavtan",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "grunt": "1.x.x",
+    "grunt-cli": "1.x.x",
+    "grunt-concurrent": "2.x.x",
+    "grunt-nodemon": "0.4.x"
+  }
+}

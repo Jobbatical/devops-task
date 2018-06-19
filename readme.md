@@ -1,18 +1,27 @@
-### Test assignment
+# Readme (kubernetes-jenkins-node_service) 
+**Node Service**
+This directory represents the SCM repo for a microservice on node which is ready deployable for kubernetes via jenkins 
+```
+- Dockerfile: configuration for the build image
+- Jenkinsfile: To trigger jenkins pipeline job for kubernetes deployment
+- k8s/*: configs for kubernetes deployment to be used with kubectl 
+```
 
-We'd like you to produce automation for deploying a [node application][repo].
+**Kube-up-aws**
 
-* This has to include provisioning the infrastructure/services on AWS;
-* Deploy on kubernetes cluster;
-* Project doesn't have to be necessarily deployed as is - can use your own fork if you need to implement some best practices on top of that project;
-* Deployment has to be scalable to a feature branch - we want to be able to easily deploy another fork/branch with the same configuration and setup and have them loadbalanced - make an example or document how you would do it;
-* We expect to see documentation on how to manage configuration, duplicate the setup to totally other application.
+SCM repo for automated provisioning of kubernetes cluster in AWS using kops can also be exported as terraform from kops
+```
+./01-create.sh
+./02-validate.sh
+```
 
-We do not expect you to spend more than you think is appropriate. Be sure to include
-* the total time spent;
-* description of what you would've done if time permitted.
-
-For any questions [contact us][contact].
-
-[contact]: mailto:devops@jobbatical.com
-[repo]: https://github.com/scotch-io/node-todo
+**Jenkins**
+Repo for jenkins job scripts and kubernetes resource deployment templates used with kubectl to create [service,ingress,autoscaler and deployment]
+from rendered templates given along the microservice 
+```
+- k8s/deployment.json
+- k8s/hpa.yaml
+- k8s/service.yaml
+- k8s/service-ingress-template.yaml
+- jenkins.groovy [called from Jenkinsfile in root of service GIT repo] 
+```
