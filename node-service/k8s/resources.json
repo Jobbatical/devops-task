@@ -1,0 +1,33 @@
+{
+    "test": {
+        "type": "LoadBalancer",
+        "replicas": 1,
+        "resources": {
+            "requests": {
+                "cpu": "5m",
+                "memory": "50Mi"
+            }
+        }
+    },
+    "staging": {
+        "type": "LoadBalancer",
+        "replicas": 1,
+        "resources": {
+            "requests": {
+                "cpu": "5m",
+                "memory": "50Mi"
+            }
+        }
+    },
+    "production": {
+        "type": "LoadBalancer",
+        "minReplicas": 1,
+        "replicas": 3,
+        "resources": {
+            "requests": {
+                "cpu": "5m",
+                "memory": "60Mi"
+            }
+        }
+    }
+}

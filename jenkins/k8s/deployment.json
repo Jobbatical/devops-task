@@ -1,0 +1,73 @@
+{
+  "kind": "Deployment",
+  "spec": {
+    "revisionHistoryLimit": 5,
+    "template": {
+      "spec": {
+        "containers": [
+          {
+            "image": "{{DOCKER_REPO}}/{{service-name}}",
+            "env": [
+              {
+                "name": "ENDPOINTS_HEALTH_ENABLED",
+                "value": "true"
+              },
+              {
+                "name": "ENDPOINTS_AUTOCONFIG_ENABLED",
+                "value": "false"
+              },
+              {{environment}}
+            ],
+            "ports": [
+              {
+                "containerPort": {{port}}
+              }
+            ],
+            "resources": {{resources}},
+            "name": "{{service-name}}",
+            "livenessProbe" : {
+              "httpGet" : {
+                "path" : "/health",
+                "port" : {{port}}
+              },
+              "initialDelaySeconds" : 20,
+              "timeoutSeconds" : 5,
+              "periodSeconds": 10,
+              "failureThreshold": 4
+            },
+            "readinessProbe" : {
+              "httpGet" : {
+                "path" : "/health",
+                "port" : {{port}}
+              },
+              "initialDelaySeconds" : 5,
+              "timeoutSeconds" : 5,
+              "periodSeconds": 5,
+              "failureThreshold": 10
+            }
+          }
+        ]
+        {{nodeSelector}}
+      },
+      "metadata": {
+        "labels": {
+          "tier": "{{tier}}",
+          "app": "{{service-name}}",
+          "owner": "{{owner}}"
+          {{labels}}
+        }
+      }
+    },
+    "minReadySeconds": 10,
+    "strategy": {
+    	"rollingUpdate": {
+    		"maxSurge": 2,
+        "maxUnavailable": 0
+    	}
+    }
+  },
+  "apiVersion": "extensions/v1beta1",
+  "metadata": {
+    "name": "{{service-name}}"
+  }
+}

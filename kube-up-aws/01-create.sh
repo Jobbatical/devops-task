@@ -1,0 +1,15 @@
+. 00-env.sh && kops create cluster \
+    --name $KOPS_CLUSTER_NAME \
+    --zones $KOPS_CLUSTER_ZONES \
+    --cloud $KOPS_CLOUD_PROVIDER \
+    --node-size $KOPS_NODE_SIZE \
+    --master-size $KOPS_MASTER_SIZE \
+    --vpc $KOPS_CLUSTER_VPC \
+    --master-zones $KOPS_MASTER_ZONES \
+    --master-security-groups $KOPS_MASTER_SG \
+    --node-security-groups $KOPS_NODE_SG \
+    --cloud-labels "Owner=user,Environment=environment" \
+    --kubernetes-version $KUBERNETES_VERSION \
+    --ssh-public-key /etc/ansible/inventory/files/ssh_pubkeys/ansible.ssh \
+    --image std_base_centos \
+    --yes
